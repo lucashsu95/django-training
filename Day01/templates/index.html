@@ -6,3 +6,15 @@
     <br />
     <button> 提交 </button>
 </form>
+
+
+<h3>己註冊用戶：</h3>
+<ul>
+    {% for data in datas %}
+        <li style="margin:10px 0;">
+            <div>序號：{{ forloop.counter }}</div>
+            <div>帳號：{{ data.0 }}</div>
+            <div>密碼：{{ data.1 }}</div>
+        </li>
+    {% endfor %}
+</ul>
