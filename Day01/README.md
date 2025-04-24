@@ -17,10 +17,13 @@ python manage.py runserver
 
 ## 介紹
 
+### urls.py
+`urls.py`就是路由，`path(路徑, 你的視圖函數(通常放在views裡)`
+
 ### 設定 settings.py
 
 在`INSTALLED_APPS`加入你剛剛新增的**網頁應用專案**(可能是web_app)
-在`TEMPLATES`的`DIRS`加入你的路徑 範例:`os.path.join(BASE_DIR, 'web_app/templates')`
+在`TEMPLATES`的`DIRS`加入你的路徑 範例:`os.path.join(BASE_DIR, 'templates')`
 
 ### 設定 tempaltes
 
