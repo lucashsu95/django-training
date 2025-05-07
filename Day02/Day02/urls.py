@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from web_app.views import register
+from web_app.views.user_view import register
+from web_app.views.announcement_view import announcement_create, announcement_update
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('register/', register)
+    path('register/', register),
+    path('announcement/create', announcement_create),
+    path('announcement/update/<int:id>', announcement_update)
+
 ]

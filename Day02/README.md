@@ -17,3 +17,10 @@ python manage.py migrate
 
 ### register.html
 `csrf_token`要放在`form`表單裡面
+
+# Day03 Django表單教學
+
+### models.py
+
+- 公告
+- 
