@@ -5,18 +5,21 @@ from ..forms.announcement_form import AnnouncementForm
 
 def announcement_create(request):
     form = AnnouncementForm()
+    data = {}
     if request.method == 'POST':
         form = AnnouncementForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'announcement/create.html', {'msg': '新增成功'})
-    return render(request, "announcement/create.html", {'form': form})
+            data['msg'] = '新增成功'
+    data['form'] = form
+    print(data)
+    return render(request, "announcement/create.html", data)
 
     
 def announcement_update(request, id):
     announcement = get_object_or_404(Announcement, pk=id)
     form = AnnouncementForm(instance=announcement)
-    data = {'msg': ''}
+    data = {}
     if request.method == 'POST':
         form = AnnouncementForm(request.POST, instance=announcement)
         if form.is_valid():
