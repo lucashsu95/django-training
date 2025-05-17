@@ -1,0 +1,38 @@
+<form method="post">
+    {% csrf_token %}
+    <label>
+        姓名：
+        <input type="text" name="name">
+    </label><br>
+
+    <label>
+        電話：
+        <input type="text" name="phone">
+    </label><br>
+
+    <label>
+        性別：
+        <select name="gender">
+            {% for value, label in gender_choices %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+    </label><br>
+
+    <label>
+        年齡：
+        <input type="number" name="age">
+    </label>
+
+    <button type="submit">送出</button>
+</form>
+{% if msg %}
+    {{ msg }}
+{% endif %}
+<!-- 
+資料表:
+name: string
+phone: string
+gender: boolen (True: m, False: f)
+age: integer  
+-->

@@ -1,0 +1,17 @@
+<form method="post" action="">
+    <input name="user_name" placeholder="輸入名字">
+    {% csrf_token %}
+    <br>
+    <input name = "user_password" placeholder="輸入密碼" type="password">
+    <br>
+    <button>提交</button>
+</form>
+
+已註冊用戶:
+{% for data in datas %}
+    <div>
+        <p>序號{{ forloop.counter }}</p>
+        <p>名字:{{ data.0 }}</p>
+        <p>密碼:{{ data.1 }}</p>
+    </div>
+{% endfor %}

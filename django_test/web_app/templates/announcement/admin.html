@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公告列表</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* 全局變數 */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #4ade80;
+            --danger: #ef4444;
+            --warning: #fb923c;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* 基礎樣式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', '微軟正黑體', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 30px;
+        }
+        
+        /* 頁面容器 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        /* 頁面標題 */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 0;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .page-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10%;
+            height: 80%;
+            width: 5px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+        
+        /* 按鈕樣式 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn i, .btn svg {
+            margin-right: 6px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 新增按鈕 */
+        .btn-add {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-add:hover {
+            background-color: #22c55e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 公告卡片 */
+        .announcement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .announcement {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .announcement:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .announcement-header {
+            padding: 20px 25px;
+            background-color: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .announcement-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0;
+        }
+        
+        .announcement-time {
+            color: var(--gray);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .announcement-time i, .announcement-time svg {
+            margin-right: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .announcement-body {
+            padding: 20px 25px;
+        }
+        
+        .announcement-content {
+            color: #4b5563;
+            line-height: 1.8;
+            font-size: 1rem;
+            white-space: pre-line;
+        }
+        
+        .announcement-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 25px;
+            background-color: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .announcement-footer form {
+            margin: 0;
+        }
+        
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .page-title {
+                font-size: 1.75rem;
+            }
+            
+            .announcement-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+        
+        /* 動畫效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .announcement {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .announcement:nth-child(1) { animation-delay: 0.1s; }
+        .announcement:nth-child(2) { animation-delay: 0.2s; }
+        .announcement:nth-child(3) { animation-delay: 0.3s; }
+        .announcement:nth-child(4) { animation-delay: 0.4s; }
+        .announcement:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">公告列表</h1>
+            <a href="/announcement/create" class="btn btn-add">
+                <i class="fas fa-plus"></i> 新增公告
+            </a>
+        </div>
+        
+        <div class="announcement-list">
+            {% for announcement in announcements %}
+            <div class="announcement">
+                <div class="announcement-header">
+                    <h2 class="announcement-title">{{ announcement.title }}</h2>
+                    <div class="announcement-time">
+                        <i class="fas fa-calendar-alt"></i> {{ announcement.createTime }}
+                    </div>
+                </div>
+                <div class="announcement-body">
+                    <div class="announcement-content">{{ announcement.content }}</div>
+                </div>
+                <div class="announcement-footer">
+                    <a href="/announcement/update/{{ announcement.id }}" class="btn btn-primary">
+                        <i class="fas fa-edit"></i> 編輯
+                    </a>
+                    <form method="POST" action="/announcement/delete/{{ announcement.id }}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('確定要刪除這則公告嗎？此操作無法復原。')">
+                            <i class="fas fa-trash-alt"></i> 刪除
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!-- templates/announcement/form.html -->
+<h2>新增公告</h2>
+<form method="POST">
+    {% csrf_token %}
+
+
+    <div>
+        <label for="id_title">標題：</label>
+        <input type="text" name="title" id="id_title" value="{{ form.title.value|default_if_none:'' }}">
+        {{ form.title.errors }}
+    </div>
+
+
+    <div>
+        <label for="id_content">內容：</label><br>
+        <textarea name="content" id="id_content">{{ form.content.value|default_if_none:'' }}</textarea>
+        {{ form.content.errors }}
+    </div>
+
+
+    <div>
+        <label for="id_startTime">開始日期：</label>
+        <input type="date" name="startTime" id="id_startTime" value="{{ form.startTime.value|default_if_none:'' }}">
+        {{ form.startTime.errors }}
+    </div>
+
+
+    <div>
+        <label for="id_endTime">結束日期：</label>
+        <input type="date" name="endTime" id="id_endTime" value="{{ form.endTime.value|default_if_none:'' }}">
+        {{ form.endTime.errors }}
+    </div>
+
+
+    <button type="submit">送出</button>
+</form>
